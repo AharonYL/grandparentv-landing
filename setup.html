@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Guide - GrandparenTV</title>
+  <meta name="description" content="Setup guide for caregivers. Your loved one never sees any of this.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📺</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">📺 GrandparenTV</a>
+      <a href="index.html" class="header-cta">Home</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="guide-hero">
+      <div class="container">
+        <h1>Setup Guide for Caregivers</h1>
+        <p>This is for YOU - the tech-savvy family member. Your loved one never sees any of this technical stuff. You set it up once, and they just see big friendly buttons.</p>
+      </div>
+    </section>
+
+    <section class="guide-content">
+      <div class="container">
+        <div class="guide-layout">
+          <aside class="guide-nav">
+            <h3>Contents</h3>
+            <ol>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#what-you-need">What You Need</a></li>
+              <li><a href="#setup-options">Setup Options</a></li>
+              <li><a href="#configure">Configure Shows</a></li>
+              <li><a href="#ipad">Set Up Their iPad</a></li>
+            </ol>
+          </aside>
+
+          <div class="guide-main">
+            <!-- How It Works -->
+            <section class="guide-section" id="how-it-works">
+              <h2>How It Works</h2>
+
+              <p>GrandparenTV has three parts:</p>
+
+              <div class="architecture">
+                <div class="arch-item">
+                  <strong>iPad</strong>
+                  <span>Shows big buttons for their favorite shows</span>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-item">
+                  <strong>Small Server</strong>
+                  <span>Runs on something at their home</span>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-item">
+                  <strong>Roku</strong>
+                  <span>Plays the shows on TV</span>
+                </div>
+              </div>
+
+              <p>The "server" sounds scary but it's just a small program that translates iPad taps into Roku commands. It needs to run on <em>something</em> at their home because Roku only accepts commands from the local network.</p>
+            </section>
+
+            <!-- What You Need -->
+            <section class="guide-section" id="what-you-need">
+              <h2>What You Need</h2>
+
+              <ul>
+                <li><strong>A Roku</strong> - Any Roku TV or streaming device, already set up</li>
+                <li><strong>An iPad</strong> - Any iPad (or Android tablet) with a browser</li>
+                <li><strong>Something to run the server</strong> - See options below</li>
+                <li><strong>Streaming accounts</strong> - Netflix, etc. logged in on the Roku</li>
+                <li><strong>Same WiFi network</strong> - All devices on the same network</li>
+              </ul>
+            </section>
+
+            <!-- Setup Options -->
+            <section class="guide-section" id="setup-options">
+              <h2>Setup Options</h2>
+
+              <p>Pick whichever works best for your situation:</p>
+
+              <div class="setup-option">
+                <h3>Option A: Use Their Existing Computer</h3>
+                <p class="option-difficulty">Easiest if they have an always-on Mac or PC</p>
+                <p>If they have a computer that stays on (like a desktop in the living room), just run GrandparenTV on it.</p>
+                <ol>
+                  <li>Download GrandparenTV</li>
+                  <li>Double-click to run</li>
+                  <li>Set it to start automatically on boot</li>
+                </ol>
+                <p class="option-note">Downside: If the computer sleeps or restarts, you'll need to restart the app.</p>
+              </div>
+
+              <div class="setup-option">
+                <h3>Option B: Raspberry Pi (Recommended)</h3>
+                <p class="option-difficulty">Best permanent solution - $35-50 one-time cost</p>
+                <p>A Raspberry Pi is a tiny computer that sits quietly and runs 24/7. You set it up once, plug it in at their house, and forget about it.</p>
+                <ol>
+                  <li>Buy a Raspberry Pi (any model works, Pi 4 or Pi Zero 2 W recommended)</li>
+                  <li>Flash the GrandparenTV image to an SD card</li>
+                  <li>Plug it in at their home - it auto-starts</li>
+                </ol>
+                <p class="option-note">We provide a pre-built image so you just flash and go.</p>
+              </div>
+
+              <div class="setup-option">
+                <h3>Option C: Your Own Server</h3>
+                <p class="option-difficulty">For tech-savvy users with existing infrastructure</p>
+                <p>If you already run a home server, NAS, or Docker host:</p>
+                <pre><code>docker run -d --net=host grandparenttv/server</code></pre>
+                <p>Or clone the repo and run with Node.js if you prefer.</p>
+              </div>
+            </section>
+
+            <!-- Configure Shows -->
+            <section class="guide-section" id="configure">
+              <h2>Configure Their Shows</h2>
+
+              <p>Once the server is running:</p>
+
+              <ol class="guide-step-list">
+                <li>
+                  <strong>Open the setup page</strong>
+                  <p>Go to <code>http://[server-ip]:3456/setup</code> in your browser</p>
+                </li>
+                <li>
+                  <strong>Connect to their Roku</strong>
+                  <p>Click "Find Roku" - it will discover Rokus on the network. Select theirs.</p>
+                </li>
+                <li>
+                  <strong>Add their favorite shows</strong>
+                  <p>Search for shows and add them. Use 4-8 shows max to keep it simple. Add shows they'll recognize - with pictures they remember.</p>
+                </li>
+                <li>
+                  <strong>Test it</strong>
+                  <p>Tap a show to make sure the TV responds.</p>
+                </li>
+              </ol>
+
+              <div class="guide-callout guide-callout-info">
+                <strong>Show ideas</strong>
+                <p>Matlock, Jeopardy!, Wheel of Fortune, NCIS, Murder She Wrote, Golden Girls, nature documentaries - whatever they love watching.</p>
+              </div>
+            </section>
+
+            <!-- iPad Setup -->
+            <section class="guide-section" id="ipad">
+              <h2>Set Up Their iPad</h2>
+
+              <p>This is what your loved one will actually use:</p>
+
+              <ol class="guide-step-list">
+                <li>
+                  <strong>Open Safari and go to the server</strong>
+                  <p><code>http://[server-ip]:3456</code></p>
+                </li>
+                <li>
+                  <strong>Add to Home Screen</strong>
+                  <p>Tap Share → "Add to Home Screen" → Name it "TV"</p>
+                </li>
+                <li>
+                  <strong>Make it the only thing they see (optional)</strong>
+                  <p>Use Guided Access (Settings → Accessibility → Guided Access) to lock the iPad to just this app. They can't accidentally exit to other apps.</p>
+                </li>
+              </ol>
+
+              <h3>iPad tips</h3>
+              <ul>
+                <li><strong>Keep it charged</strong> - Leave it plugged in so it's always ready</li>
+                <li><strong>Auto-Lock: Never</strong> - So the screen stays on (Settings → Display)</li>
+                <li><strong>Label it</strong> - Put a sticker that says "TV Remote"</li>
+              </ul>
+
+              <div class="guide-callout guide-callout-success">
+                <strong>That's it!</strong>
+                <p>Hand them the iPad. Show them once: "Tap a picture to watch that show." They'll figure out the rest.</p>
+              </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 48px;">
+              <a href="index.html" class="btn-primary">Back to Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span>📺 GrandparenTV</span>
+        <span>Open source under MIT License</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Highlight current section
+    const sections = document.querySelectorAll('.guide-section');
+    const navLinks = document.querySelectorAll('.guide-nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-100px 0px -70% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

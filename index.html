@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrandparenTV</title>
+  <meta name="description" content="A simple way for grandparents to watch their favorite shows.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📺</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">📺 GrandparenTV</a>
+      <nav class="nav-links">
+        <a href="how-it-works.html">How it works</a>
+        <a href="setup.html" class="nav-cta">Setup guide</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>A simple way to stream TV.</h1>
+        <p class="hero-sub">My grandparents are experiencing dementia and had trouble using streaming services,<br>so I made this simple, open source app to make it easier.</p>
+      </div>
+    </section>
+
+    <!-- Device Demo -->
+    <section class="demo">
+      <div class="container">
+        <div class="devices">
+          <!-- iPad -->
+          <div class="ipad-frame">
+            <div class="ipad-notch"></div>
+            <div class="ipad-screen">
+              <div class="app-header">My Shows</div>
+              <div class="app-grid">
+                <div class="app-tile" style="--bg: #e50914" data-service="netflix">
+                  <div class="tile-img"></div>
+                  <span>Matlock</span>
+                </div>
+                <div class="app-tile" style="--bg: #00a8e1" data-service="prime">
+                  <div class="tile-img"></div>
+                  <span>Jeopardy!</span>
+                </div>
+                <div class="app-tile" style="--bg: #1ce783" data-service="hulu">
+                  <div class="tile-img"></div>
+                  <span>NCIS</span>
+                </div>
+                <div class="app-tile" style="--bg: #6b3fa0" data-service="roku">
+                  <div class="tile-img"></div>
+                  <span>Wheel of Fortune</span>
+                </div>
+              </div>
+            </div>
+            <p class="device-label">Their iPad</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="flow-arrow">
+            <span class="arrow-icon">→</span>
+            <span class="arrow-label">tap</span>
+          </div>
+
+          <!-- TV -->
+          <div class="tv-frame">
+            <div class="tv-screen">
+              <div class="tv-content">
+                <div class="tv-service"></div>
+                <div class="tv-playing">
+                  <span class="tv-play">▶</span>
+                  <span class="tv-title">Now Playing: <span style="color:#e50914">Matlock</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="tv-stand"></div>
+            <p class="device-label">Their TV</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Explanation -->
+    <section class="explanation">
+      <div class="container">
+        <p>That's really all there is to it. They tap a picture of a show, and it plays on their TV. No remotes, no menus, just tap and watch.</p>
+        <p>Setup takes about 10 minutes: install a small app on an always-on computer at their place, connect it to their Roku, and add their favorite shows.</p>
+      </div>
+    </section>
+
+    <!-- What you need -->
+    <section class="what-you-need">
+      <div class="container">
+        <h2>What you'll need</h2>
+        <ul class="needs-list">
+          <li><strong>A Roku</strong> — any Roku TV or streaming stick (Roku only for now)</li>
+          <li><strong>An iPad</strong> — or any tablet, really</li>
+          <li><strong>A computer at their place</strong> — runs a small app that connects the tablet to the Roku</li>
+        </ul>
+        <p class="needs-note">The computer can be anything — an old laptop, a Mac Mini, even a Raspberry Pi. It just needs to stay on.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container">
+        <a href="setup.html" class="btn-primary">See the setup guide</a>
+        <p class="cta-note">or <a href="how-it-works.html">read more about how it works</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Free & open source</span>
+    </div>
+  </footer>
+
+  <script>
+    const tiles = document.querySelectorAll('.app-tile');
+    const tvContent = document.querySelector('.tv-content');
+    const tvService = document.querySelector('.tv-service');
+    const tvPlaying = document.querySelector('.tv-playing');
+    const tvTitle = document.querySelector('.tv-title');
+
+    const services = {
+      netflix: { name: 'NETFLIX', color: '#e50914' },
+      prime: { name: 'prime video', color: '#00a8e1' },
+      hulu: { name: 'hulu', color: '#1ce783' },
+      roku: { name: 'Roku Channel', color: '#6b3fa0' }
+    };
+
+    let isAnimating = false;
+
+    tiles.forEach(tile => {
+      tile.addEventListener('click', () => {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const showName = tile.querySelector('span').textContent;
+        const tileColor = getComputedStyle(tile).getPropertyValue('--bg').trim();
+        const service = services[tile.dataset.service];
+
+        // Phase 1: Show service logo
+        tvService.innerHTML = '<span style="color:' + service.color + '">' + service.name + '</span>';
+        tvService.classList.add('active');
+        tvPlaying.classList.add('hidden');
+        tvContent.style.background = 'linear-gradient(180deg, ' + service.color + '33 0%, #101318 70%)';
+
+        // Phase 2: Show the playing content
+        setTimeout(() => {
+          tvService.classList.remove('active');
+          tvPlaying.classList.remove('hidden');
+          tvContent.style.background = 'linear-gradient(180deg, ' + tileColor + '22 0%, #101318 60%)';
+          tvTitle.innerHTML = 'Now Playing: <span style="color:' + tileColor + '">' + showName + '</span>';
+          isAnimating = false;
+        }, 800);
+      });
+    });
+  </script>
+</body>
+</html>
